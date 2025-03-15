@@ -1,5 +1,5 @@
 flist = []
-with open('input.txt') as file:
+with open('2024/day1/input.txt') as file:
     lines = file.readlines()
     for line in lines:
         numbers = line.strip().split()
