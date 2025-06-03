@@ -89,3 +89,4 @@ solvepart1()
 solvepart2()
 
 #Completed
+#set for capturing unique cordinates, update depending on direction of ^<>, append to a list and then convert to a set at end, print len for the total unique cordinates.
