@@ -1,51 +1,43 @@
 # wire A signal 
-#
-#(0, 2^16)
+#(0, 2^16 - 1)
 # bin() to conver to binary representation, 
-# figure out operators and how to 
-d = 72
-e = 507
-f = 492
-g = 114
-h = 65412
-i = 65079
-x = 123
-y = 456
+# figure out operators and how to
+circuits = {} 
+def updateCircuit(x):
+    print(x[-1])
+    if x[-1] in circuits.items():
+        print(circuits.items[x[-1]])
+        #need to update every instance of the circuit and check and change the value to the updated one.
+    for value in circuits:
+        print(value)
+
 def solve1():
-    notCount = 0
-    andCount = 0
-    LshiftCount = 0
-    RshiftCount = 0
-    orCount = 0
-    dCount = 0
+    circuits = {}
     with open('2015/day7/input.txt') as file:
         for line in file:
-            line = line.strip()
-            if "AND" in line:
-                andCount = andCount+1
-                print("AND")
-                print(line)
-            elif "OR" in line:
-                orCount = orCount+1
-                print("OR")
-                print(line)
-            elif "RSHIFT" in line:
-                RshiftCount = RshiftCount+1
-                print("RSHIFT")
-                print(line)
-            elif "LSHIFT" in line:
-                LshiftCount = LshiftCount+1
-                print("LSHIFT")
-                print(line)
-            elif "NOT" in line:
-                notCount = notCount+1
-                print("NOT")
-                print(line)
-            else:
-                dCount = dCount+1
-                print("DECLARE")
-                print(line)
-    sum = LshiftCount+RshiftCount+orCount+andCount+notCount+dCount
-    print(f'{LshiftCount} + {RshiftCount} + {orCount} + {andCount} + {notCount} + {dCount} + {sum}')
+            parts = [part.strip() for part in line.split('->')]
+            circuits[parts[-1]] = parts[0]
+            circuits = dict(sorted(circuits.items()))
+        #print(circuits.items())
+        while circuits['a'] == 'lx':
+            for x in circuits.items():
+                updateCircuit(x)
+                if "AND" in x[-1]:
+                    #print(x)
+                    circuits[x[0]] = x[-1]
+                elif "OR" in x[-1]:
+                    circuits[x[0]] = x[-1]
+                elif "RSHIFT" in x[-1]:
+                    circuits[x[0]] = x[-1]
+                elif "LSHIFT" in x[-1]:
+                    circuits[x[0]] = x[-1]
+                elif "NOT" in x[-1]:
+                    parts = [part.strip() for part in x[-1].split('NOT')]
+                    print(parts)
+                    circuits[x[0]] = int((65536-1) - parts[-1])
+                else:
+                    circuits[x[0]] = x[-1]
+                    circuits['a'] = 'lsklhf'
 
 solve1()
+
