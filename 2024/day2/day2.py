@@ -1,45 +1,45 @@
-flist = []
-count = 0
-with open('2024/day2/input.txt') as file:
-    lines = file.readlines()
-    for line in lines:
-        store = 0
-        print(line)
-        afterline = (line.strip().split())
-        store = int(afterline[0])
-        print(int(afterline[1]))
-        if (int(afterline[1]) - store < 0):
-            print("decreasing")
-            for x in afterline[1:]:
-                x = int(x)
-                print(x)
-                print(store)
-                if(x > store+3 and x - store < 0):
-                    print("unsafe")
+def solvepart1():
+    count = 0
+    with open('2024/day2/input.txt') as file:
+        for line in file:
+            store = 0
+            safe = True
+            line = line.strip().split()
+            print(line)
+            if (int(line[0]) - int(line[1]) > 0):
+                print("decreasing")
+                for x in line[1:]:
+                    x = int(x)
+                    print(x)
+                    print(line[store])
+                    if not(int(line[store]) - x > 1 and int(line[store]) - x < 3):
+                        print("unsafe")
+                        safe = False
+                        break
+                    else:
+                        store = store+1
+                if safe:
+                    print(line)
                     count = count+1
-                    break
-                else:
-                    store = x
-            else:
-                count = count+1
-                break
-        elif (int(afterline[1]) - store > 0): 
-            print("increasing")
-            for c in afterline[1:]:
-                c = int(c)
-                print(c)
-                print(store)
-                if(c-3 > store and c - store > 0):
-                    print("unsafe")
+            elif (int(line[1]) - int(line[0]) > 0): 
+                print("increasing")
+                for c in line[1:]:
+                    c = int(c)
+                    print(c)
+                    print(line[store])
+                    if not(c - int(line[store]) > 1 and c - int(line[store]) < 3):
+                        print("unsafe")
+                        safe = False
+                        break
+                    else:
+                        store = store+1
+                if safe:
+                    print(line)
                     count = count+1
-                    break
-                else:
-                    store = c
             else:
-                count = count+1
+                count = count+1 
                 break
-            
-    print(f"safe: + {count}")
-    print("")
-print(count)
-            
+        print(f"safe: {count}")
+                
+
+solvepart1()
